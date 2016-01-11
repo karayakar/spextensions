@@ -11,7 +11,7 @@ var gulp = require('gulp'),
     log = plugins.util.log,
     config = require('./gulpfile.config.json');
 
-gulp.task('build', ['clean:build','build:js']);
+gulp.task('build', ['clean:build','build:js','build:templates']);
 
 gulp.task('build:js', function () {
     log(plugins.util.colors.yellow('*** JS | Bundling, minifying, and copying JavaScript'));
@@ -20,7 +20,16 @@ gulp.task('build:js', function () {
         .src(config.js)
         .pipe(plugins.concat("spextensions.min.js"))
         .pipe(plugins.uglify())
-        .pipe(gulp.dest(config.build));
+        .pipe(gulp.dest(config.build + 'js'));
+});
+
+gulp.task('build:templates', function () {
+    log(plugins.util.colors.yellow('*** BUILD | TEMPLATES ***'));
+
+    return gulp
+        .src(config.templates)
+        .pipe(plugins.concat('templates.html'))
+        .pipe(gulp.dest(config.build + 'html'));
 });
 
 gulp.task('install:lib', function () {
