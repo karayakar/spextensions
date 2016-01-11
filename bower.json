@@ -1,0 +1,23 @@
+{
+  "name": "SPExtensions",
+  "private": true,
+  "main": "./dist/spextensions.min.js",
+  "ignore": [
+    "src",
+    "node_modules",
+    "lib",
+    ".bowerrc",
+    ".gitignore",
+    ".jshintignore",
+    ".jshintrc",
+    "bower.json",
+    "gruntfile.js",
+    "gulpfile.config.json",
+    "package.json",
+    "README.md"
+  ],
+  "dependencies": {
+    "jquery": "2.1.4",
+    "jsviews": "v1.0.0-beta.70"
+  }
+}
