@@ -9,6 +9,7 @@ var gulp = require('gulp'),
     del = require('del'),
     plugins = require('gulp-load-plugins')(),
     log = plugins.util.log,
+    merge = require('merge-stream'),
     config = require('./gulpfile.config.json');
 
 gulp.task('build', ['clean:build','build:js','build:templates']);
@@ -21,6 +22,23 @@ gulp.task('build:js', function () {
         .pipe(plugins.concat("spextensions.min.js"))
         .pipe(plugins.uglify())
         .pipe(gulp.dest(config.build + 'js'));
+});
+
+gulp.task('build:js', function () {
+    log(plugins.util.colors.yellow('*** JS | Bundling, minifying, and copying JavaScript'));
+
+    var compressedJs = gulp
+        .src(config.js)
+        .pipe(plugins.concat("spextensions.min.js"))
+        .pipe(plugins.uglify())
+        .pipe(gulp.dest(config.build + 'js'));
+        
+    var uncompressedJs = gulp
+        .src(config.js)
+        .pipe(plugins.concat("spextensions.js"))
+        .pipe(gulp.dest(config.build + 'js'));
+    
+    return merge(compressedJs, uncompressedJs);
 });
 
 gulp.task('build:templates', function () {
