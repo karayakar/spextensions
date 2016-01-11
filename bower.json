@@ -1,6 +1,6 @@
 {
   "name": "SPExtensions",
-  "private": true,
+  "private": false,
   "main": "./dist/spextensions.min.js",
   "ignore": [
     "src",
