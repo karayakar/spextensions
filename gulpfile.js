@@ -46,8 +46,7 @@ gulp.task('build:templates', function () {
 
     return gulp
         .src(config.templates)
-        .pipe(plugins.concat('templates.html'))
-        .pipe(gulp.dest(config.build + 'html'));
+        .pipe(gulp.dest(config.build + 'templates'));
 });
 
 gulp.task('install:lib', function () {

@@ -1,6 +1,6 @@
 ﻿{
   "js": "./src/js/*.js",
-  "templates": "./src/templates/*.tmpl.html",
+  "templates": "./src/templates/*.tmpl",
   "build": "./dist/",
   "lib": "./lib/",
   "node": "./node_modules"
