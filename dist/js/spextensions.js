@@ -48,7 +48,7 @@ SPExt.ClientTemplates.PrefilledUserFieldTemplate = function (ctx, user, readonly
         AutoFillDisplayText: escapedUserName,
         AutoFillSubDisplayText: "",
         AutoFillTitleText: "ActiveDirectory\\n" + escapedUserName,
-        DomainText: "ASBNET",
+        DomainText: "",
         LocalSearchTerm: user.DisplayName,
         Resolved: true
     };
@@ -110,7 +110,7 @@ SPExt.CSR.Register = function (templateCtx, fileNames) {
 var SPExt = SPExt || {};
 SPExt.Forms = SPExt.Forms || {};
 
-SPExt.Forms.RenderCustom = function (ctx, codeTokenUrl, templateName) {
+SPExt.Forms.RenderCustom = function (ctx, templateName) {
     var renderCtx = {
         ListSchema: WPQ2FormCtx.ListSchema,
         FormUniqueId: ctx.FormUniqueId,
@@ -152,8 +152,8 @@ SPExt.LoadCss = function (url) {
     document.getElementsByTagName('head')[0].appendChild(link);
 };
 
-SPExt.OpenInDialog = function (url) {
-    var options = {
+SPExt.OpenInDialog = function (url, options) {
+    options = options || {
         url: url,
         allowMaximize: true,
         showClose: true
@@ -237,19 +237,21 @@ SPExt.User.GetProperty = function (propertyName, userProfileProperties) {
 };
 
 // Retrieve the full user address in the format Street\nPLZ-City
-SPExt.User.GetFullAddress = function () {
+SPExt.User.GetFullAddress = function (streetPropertyName, postalCodePropertyName, locationPropertyName) {
+    streetPropertyName = streetPropertyName || "streetAddress";
+    postalCodePropertyName = postalCodePropertyName || "postalCode";
+    locationPropertyName = locationPropertyName || "SPS-Location";
+    
     return $.Deferred(function (defer) {
         SPExt.User.GetSelfProfile().then(function (data) {
-            var streetAddress = SPExt.User.GetProperty("streetAddress", data.d.UserProfileProperties);
-            var postalCode = SPExt.User.GetProperty("postalCode", data.d.UserProfileProperties);
-            var spsLocation = SPExt.User.GetProperty("SPS-Location", data.d.UserProfileProperties);
+            var streetAddress = SPExt.User.GetProperty(streetPropertyName, data.d.UserProfileProperties);
+            var postalCode = SPExt.User.GetProperty(postalCodePropertyName, data.d.UserProfileProperties);
+            var spsLocation = SPExt.User.GetProperty(locationPropertyName, data.d.UserProfileProperties);
 
-            if (streetAddress != null && streetAddress != "" &&
-					postalCode != null && postalCode != "" &&
-					spsLocation != null && spsLocation != "") {
-                var address = streetAddress + "\n" + postalCode + "-" + spsLocation;
-                return defer.resolve(address);
-            }
+            var address = streetAddress != null ? streetAddress + "\n" : "";
+            address += postalCode != null ? (spsLocation ? postalCode + "-" : postalCode) : (spsLocation || "");
+            
+            return defer.resolve(address);
 
             return defer.reject("Empty user address");
         }, defer.reject);
