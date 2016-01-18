@@ -9,8 +9,8 @@ SPExt.LoadCss = function (url) {
     document.getElementsByTagName('head')[0].appendChild(link);
 };
 
-SPExt.OpenInDialog = function (url) {
-    var options = {
+SPExt.OpenInDialog = function (url, options) {
+    options = options || {
         url: url,
         allowMaximize: true,
         showClose: true

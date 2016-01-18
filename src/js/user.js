@@ -29,19 +29,21 @@ SPExt.User.GetProperty = function (propertyName, userProfileProperties) {
 };
 
 // Retrieve the full user address in the format Street\nPLZ-City
-SPExt.User.GetFullAddress = function () {
+SPExt.User.GetFullAddress = function (streetPropertyName, postalCodePropertyName, locationPropertyName) {
+    streetPropertyName = streetPropertyName || "streetAddress";
+    postalCodePropertyName = postalCodePropertyName || "postalCode";
+    locationPropertyName = locationPropertyName || "SPS-Location";
+    
     return $.Deferred(function (defer) {
         SPExt.User.GetSelfProfile().then(function (data) {
-            var streetAddress = SPExt.User.GetProperty("streetAddress", data.d.UserProfileProperties);
-            var postalCode = SPExt.User.GetProperty("postalCode", data.d.UserProfileProperties);
-            var spsLocation = SPExt.User.GetProperty("SPS-Location", data.d.UserProfileProperties);
+            var streetAddress = SPExt.User.GetProperty(streetPropertyName, data.d.UserProfileProperties);
+            var postalCode = SPExt.User.GetProperty(postalCodePropertyName, data.d.UserProfileProperties);
+            var spsLocation = SPExt.User.GetProperty(locationPropertyName, data.d.UserProfileProperties);
 
-            if (streetAddress != null && streetAddress != "" &&
-					postalCode != null && postalCode != "" &&
-					spsLocation != null && spsLocation != "") {
-                var address = streetAddress + "\n" + postalCode + "-" + spsLocation;
-                return defer.resolve(address);
-            }
+            var address = streetAddress != null ? streetAddress + "\n" : "";
+            address += postalCode != null ? (spsLocation ? postalCode + "-" : postalCode) : (spsLocation || "");
+            
+            return defer.resolve(address);
 
             return defer.reject("Empty user address");
         }, defer.reject);

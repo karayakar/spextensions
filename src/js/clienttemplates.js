@@ -48,7 +48,7 @@ SPExt.ClientTemplates.PrefilledUserFieldTemplate = function (ctx, user, readonly
         AutoFillDisplayText: escapedUserName,
         AutoFillSubDisplayText: "",
         AutoFillTitleText: "ActiveDirectory\\n" + escapedUserName,
-        DomainText: "ASBNET",
+        DomainText: "",
         LocalSearchTerm: user.DisplayName,
         Resolved: true
     };

@@ -1,5 +1,5 @@
 <script id="csr-field" type="text/x-jsrender">
-    <tr id="{{if Type == "Attachments"}}idAttachmentsRow{{else}}{{>~root.FormUniqueId}}{{>~root.ListId}}{{>Name}}_Row{{/if}}" {{if Type == "Attachments"}} style="display: none" {{/if}}>
+    <tr id="{{if Type == "Attachments"}}idAttachmentsRow{{else}}{{>~root.FormUniqueId}}{{>~root.ListId}}{{>Name}}_Row{{/if}}" {{if Type == "Attachments" || ~hidden}} style="display: none" {{/if}}>
         <td width="113" class="ms-formlabel" style="white-space:nowrap;" valign="top" id="{{>~root.FormUniqueId}}{{>~root.ListId}}{{>Name}}_LabelCell">
             <h3 class="ms-standardheader">
                 <nobr>{{if ~label != null}}{{>~label}}{{else}}{{>Title}}{{/if}}{{if ~required || Required}}<span title="Dies ist ein Pflichtfeld." class="ms-accentText"> *</span>{{/if}}</nobr>
