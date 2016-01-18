@@ -1,7 +1,7 @@
 ﻿var SPExt = SPExt || {};
 SPExt.Forms = SPExt.Forms || {};
 
-SPExt.Forms.RenderCustom = function (ctx, codeTokenUrl, templateName) {
+SPExt.Forms.RenderCustom = function (ctx, templateName) {
     var renderCtx = {
         ListSchema: WPQ2FormCtx.ListSchema,
         FormUniqueId: ctx.FormUniqueId,
