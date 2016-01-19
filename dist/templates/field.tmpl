@@ -1,8 +1,8 @@
 <script id="csr-field" type="text/x-jsrender">
-    <tr id="{{if Type == "Attachments"}}idAttachmentsRow{{else}}{{>~root.FormUniqueId}}{{>~root.ListId}}{{>Name}}_Row{{/if}}" {{if Type == "Attachments" || ~hidden}} style="display: none" {{/if}}>
+    <tr data-link="visible{:!~hidden && Type != 'Attachments'}" id="{{if Type == 'Attachments'}}idAttachmentsRow{{else}}{{>~root.FormUniqueId}}{{>~root.ListId}}{{>Name}}_Row{{/if}}">
         <td width="113" class="ms-formlabel" style="white-space:nowrap;" valign="top" id="{{>~root.FormUniqueId}}{{>~root.ListId}}{{>Name}}_LabelCell">
             <h3 class="ms-standardheader">
-                <nobr>{{if ~label != null}}{{>~label}}{{else}}{{>Title}}{{/if}}{{if ~required || Required}}<span title="Dies ist ein Pflichtfeld." class="ms-accentText"> *</span>{{/if}}</nobr>
+                <nobr>{{if ~label}}{{>~label}}{{else}}{{>Title}}{{/if}}{{if ~required || Required}}<span title="Dies ist ein Pflichtfeld." class="ms-accentText"> *</span>{{/if}}</nobr>
             </h3>
         </td>
         <td width="350" class="ms-formbody" valign="top" id="{{>~root.FormUniqueId}}{{>~root.ListId}}{{>Name}}_FieldCell">
@@ -11,10 +11,10 @@
                  FieldType="SPField{{>Type}}"
               -->
 
-            <span id='{{>~root.FormUniqueId}}{{>~root.ListId}}{{>Name}}' data-sp-options='{"mode":{{>~root.ControlMode}},"source":"{{>Name}}"}' data-sp-control="SPField{{>Type}}"></span>
-            {{if Description && Type != "User" && (~root.ControlMode != 1 || ~forceDescription)}}<span class="ms-metadata">{{:~encodeLinkBreaks(Description)}}</span>{{/if}}
+            <span id="{{>~root.FormUniqueId}}{{>~root.ListId}}{{>Name}}" data-sp-options="{'mode':{{>~root.ControlMode}},'source':'{{>Name}}'}" data-sp-control="SPField{{>Type}}"></span>
+            {{if Description && Type != 'User' && (~root.ControlMode != 1 || ~forceDescription)}}<span class="ms-metadata">{{:~encodeLinkBreaks(Description)}}</span>{{/if}}
 
-            {{if Type == "Attachments"}}
+            {{if Type == 'Attachments'}}
                 {{:"<scr" + "ipt type=&quot;text/javascript&quot;>"}}
                 // <![CDATA[
 				    if (typeof ShowAttachmentRows == "function")

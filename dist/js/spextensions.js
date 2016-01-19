@@ -249,8 +249,8 @@ SPExt.User.GetFullAddress = function (streetPropertyName, postalCodePropertyName
             var postalCode = SPExt.User.GetProperty(postalCodePropertyName, data.d.UserProfileProperties);
             var spsLocation = SPExt.User.GetProperty(locationPropertyName, data.d.UserProfileProperties);
 
-            var address = streetAddress != null ? streetAddress + "\n" : "";
-            address += postalCode != null ? (spsLocation ? postalCode + "-" : postalCode) : (spsLocation || "");
+            var address = streetAddress ? streetAddress + "\n" : "";
+            address += postalCode ? (spsLocation ? postalCode + "-" : postalCode) : (spsLocation || "");
             
             return defer.resolve(address);
 
