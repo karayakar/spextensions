@@ -110,11 +110,12 @@ SPExt.CSR.Register = function (templateCtx, fileNames) {
 var SPExt = SPExt || {};
 SPExt.Forms = SPExt.Forms || {};
 
-SPExt.Forms.RenderCustom = function (ctx, templateName) {
-    var renderCtx = {
+SPExt.Forms.RenderCustom = function (ctx, templateName, renderCtx) {
+    renderCtx = renderCtx || {
         ListSchema: WPQ2FormCtx.ListSchema,
-        FormUniqueId: ctx.FormUniqueId,
+        ListData: WPQ2FormCtx.ListData,
         ListId: ctx.FormContext.listAttributes.Id,
+        FormUniqueId: ctx.FormUniqueId,
         ControlMode: ctx.ControlMode
     };
 
